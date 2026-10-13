@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0a121c">
+<title>Jharkhand Pollution Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<style>
+:root{--bg:#08111b;--panel:#101c29;--panel2:#142333;--line:#253647;--text:#edf4f8;--muted:#91a5b6;--teal:#55dfbd;--blue:#72b7ff;--amber:#f4c46b;--red:#ff7e82;--green:#74d8a6;--radius:17px}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 75% -10%,#18384a 0,transparent 35%),var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;font-size:14px}button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:var(--teal)}.shell{display:grid;grid-template-columns:250px 1fr;min-height:100vh}.sidebar{border-right:1px solid var(--line);padding:24px 15px;background:rgba(8,17,27,.92);position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:25px}.brand{display:flex;align-items:center;gap:12px;padding:0 9px}.brandmark{height:42px;width:42px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,#43d6b1,#9af0c7);color:#06211e;font-size:21px;font-weight:900}.brand strong{display:block;font:800 14px Manrope}.brand small{display:block;color:var(--muted);font-size:11px;margin-top:4px}.navlabel{color:#647b8d;text-transform:uppercase;letter-spacing:1.6px;font-size:10px;font-weight:700;padding:0 12px;margin-bottom:8px}.nav{display:grid;gap:5px}.nav button{border:0;background:transparent;color:#9bb0c0;text-align:left;padding:12px 13px;border-radius:10px;display:flex;gap:12px;align-items:center;transition:.2s}.nav button:hover,.nav button.active{background:#193040;color:#f1fbff}.nav button.active{box-shadow:inset 3px 0 var(--teal)}.nav .ico{width:20px;text-align:center;font-size:16px}.sidebottom{margin-top:auto;border:1px solid var(--line);background:#0d1924;padding:14px;border-radius:13px}.statusdot{display:inline-block;width:7px;height:7px;background:var(--teal);border-radius:50%;margin-right:6px}.sidebottom p{color:var(--muted);font-size:11px;line-height:1.6;margin:8px 0 0}.main{min-width:0;padding:26px clamp(18px,3vw,42px) 38px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:30px}.eyebrow{font-size:11px;letter-spacing:1.7px;text-transform:uppercase;color:var(--teal);font-weight:700}.title{font:800 clamp(23px,3vw,33px) Manrope;margin:7px 0}.subtitle{color:var(--muted);line-height:1.6;margin:0;max-width:680px}.actions{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.btn{border:1px solid var(--line);background:#152536;color:var(--text);padding:10px 13px;border-radius:10px;font-weight:700;font-size:12px}.btn:hover{border-color:#547589}.btn.primary{background:var(--teal);color:#06251f;border-color:var(--teal)}.btn:disabled{opacity:.45;cursor:not-allowed}.select{background:#10202d;color:var(--text);border:1px solid var(--line);padding:10px 12px;border-radius:10px;min-width:150px}.grid{display:grid;gap:16px}.stats{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:18px}.card{border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(150deg,rgba(20,35,51,.97),rgba(13,25,37,.97));padding:20px;min-width:0;box-shadow:0 8px 30px rgba(0,0,0,.08)}.stathead{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px}.staticon{width:33px;height:33px;border:1px solid #2a4655;border-radius:10px;display:grid;place-items:center;color:var(--teal);font-size:15px}.metric{font:800 30px Manrope;letter-spacing:-1.1px;margin:15px 0 5px}.metric small{font:500 12px "DM Sans";letter-spacing:0;color:var(--muted)}.footnote{font-size:11px;color:var(--muted);line-height:1.5}.sectionhead{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:28px 0 14px}.sectionhead h2{font:700 17px Manrope;margin:0 0 5px}.sectionhead p{margin:0;color:var(--muted);font-size:12px;line-height:1.5}.two{grid-template-columns:minmax(0,1.4fr) minmax(280px,.9fr)}.three{grid-template-columns:repeat(3,minmax(0,1fr))}.chartwrap{height:270px;position:relative}.chartwrap.small{height:220px}.cardtitle{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}.cardtitle h3{font:700 14px Manrope;margin:0}.cardtitle span{color:var(--muted);font-size:11px}.pill{display:inline-flex;align-items:center;gap:6px;padding:6px 9px;border-radius:99px;background:#1a3040;color:#a6bdcd;font-size:10px;font-weight:700}.pill.good{color:#76e1b2;background:#14362e}.pill.moderate{color:#f5d47e;background:#3a321d}.pill.sensitive{color:#ffc17d;background:#3c2b1d}.pill.unhealthy,.pill.very-unhealthy,.pill.hazardous{color:#ff9b9f;background:#40252c}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;white-space:nowrap}th{text-align:left;color:#7e95a7;font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:12px;border-bottom:1px solid var(--line)}td{padding:14px 12px;border-bottom:1px solid rgba(37,54,71,.7);font-size:12px}tr:last-child td{border-bottom:0}td strong{font-size:12px}.districtname{display:flex;align-items:center;gap:10px}.placeicon{height:31px;width:31px;border-radius:9px;background:#1b3442;color:var(--teal);display:grid;place-items:center}.muted{color:var(--muted)}.progress{height:5px;background:#263746;border-radius:99px;overflow:hidden;margin-top:7px;width:92px}.progress i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#54dcb8,#f3c36d,#ff777d)}.map{height:390px;border-radius:13px;overflow:hidden;border:1px solid var(--line);background:#0c1924}.mapgrid{grid-template-columns:minmax(0,1.5fr) minmax(260px,.7fr)}.maplegend{display:flex;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:11px;margin-top:12px}.legenddot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:5px}.panelnote{background:#102735;border:1px solid #214455;padding:13px 15px;border-radius:12px;color:#a9c4d2;font-size:12px;line-height:1.6}.panelnote strong{color:#e6f5fb}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:grid;gap:7px}.field.full{grid-column:1/-1}.field label{color:#b7c7d3;font-size:12px;font-weight:600}.field input,.field select,.field textarea{background:#0a1722;border:1px solid #2a3c4c;border-radius:10px;padding:12px;color:var(--text);width:100%;outline:none}.field textarea{min-height:115px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--teal)}.notice{padding:12px 14px;border-radius:10px;background:#112c30;border:1px solid #235148;color:#a8ebd5;line-height:1.5;font-size:12px;margin-top:14px}.error{background:#351f25;border-color:#6a343d;color:#ffb6b9}.hidden{display:none!important}.page{display:none}.page.active{display:block}.empty{padding:28px;text-align:center;color:var(--muted)}.empty strong{display:block;color:var(--text);margin-bottom:7px}.complaint-result{margin-top:15px;border:1px solid var(--line);border-radius:12px;padding:15px}.forecasttiles{grid-template-columns:repeat(3,minmax(0,1fr))}.forecasttile{padding:15px;border:1px solid var(--line);border-radius:12px;background:#0d1a26}.forecasttile .day{color:var(--muted);font-size:11px}.forecasttile .value{font:700 22px Manrope;margin:10px 0 5px}.sourcegrid{grid-template-columns:repeat(2,minmax(0,1fr))}.sourceitem{padding:16px;border:1px solid var(--line);border-radius:12px;background:#0d1a26}.sourceitem strong{display:block;margin-bottom:7px}.sourceitem p{color:var(--muted);font-size:12px;line-height:1.6;margin:0 0 10px}.adminrow{display:grid;grid-template-columns:1fr 170px 90px;gap:10px;align-items:center;border-bottom:1px solid var(--line);padding:14px 0}.footer{border-top:1px solid var(--line);margin-top:28px;padding-top:18px;color:#6f8799;font-size:10px;line-height:1.7}.toast{position:fixed;bottom:20px;right:20px;z-index:9999;max-width:340px;padding:13px 16px;border-radius:12px;background:#173b35;border:1px solid #2d6d5c;color:#e2fff4;box-shadow:0 10px 30px #0006}.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#10202d;color:#eef5f9}.leaflet-popup-content{font-family:"DM Sans";font-size:12px}.leaflet-container{background:#101e2b}.leaflet-control-attribution{font-size:9px!important}
+@media(max-width:1100px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.two,.mapgrid{grid-template-columns:1fr}}@media(max-width:760px){.shell{grid-template-columns:1fr}.sidebar{position:relative;height:auto;padding:13px;border-right:0;border-bottom:1px solid var(--line);gap:14px}.brand{padding:4px}.nav{grid-template-columns:repeat(3,minmax(0,1fr))}.nav button{padding:10px 7px;justify-content:center;flex-direction:column;gap:4px;text-align:center;font-size:10px}.navlabel,.sidebottom{display:none}.main{padding:20px 14px}.topbar{align-items:flex-start;flex-direction:column}.actions{width:100%}.stats{gap:10px}.card{padding:15px}.metric{font-size:25px}.three,.forecasttiles,.sourcegrid{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}.map{height:340px}.adminrow{grid-template-columns:1fr}.chartwrap{height:240px}}
+</style>
+</head>
+<body>
+<div class="shell">
+<aside class="sidebar">
+  <div class="brand"><div class="brandmark">⌁</div><div><strong>JHARKHAND<span style="color:var(--teal)"> / AIR</span></strong><small>Pollution Intelligence Platform</small></div></div>
+  <div><div class="navlabel">Workspace</div><nav class="nav" id="nav">
+    <button class="active" data-page="overview"><span class="ico">▦</span>Overview</button>
+    <button data-page="districts"><span class="ico">⌖</span>District Explorer</button>
+    <button data-page="map"><span class="ico">◉</span>Live Map</button>
+    <button data-page="forecast"><span class="ico">↗</span>Forecast & Trends</button>
+    <button data-page="complaints"><span class="ico">☷</span>Report Pollution</button>
+    <button data-page="admin"><span class="ico">⚙</span>Admin Desk</button>
+    <button data-page="sources"><span class="ico">ⓘ</span>Data & Methodology</button>
+  </nav></div>
+  <div class="sidebottom"><span class="statusdot"></span><strong style="font-size:11px">Live service connection</strong><p id="serviceStatus">Connecting to the air-quality provider…</p></div>
+</aside>
+<main class="main">
+<header class="topbar"><div><div class="eyebrow">Environment monitoring / Jharkhand, India</div><h1 class="title" id="pageTitle">State overview</h1><p class="subtitle" id="pageSubtitle">Explore model-based air-quality estimates, compare district trends and report environmental concerns.</p></div><div class="actions"><select id="globalDistrict" class="select" aria-label="Choose district"></select><button class="btn" id="refreshBtn">↻ Refresh data</button></div></header>
+
+<section class="page active" id="page-overview">
+  <div class="grid stats">
+    <article class="card"><div class="stathead">Average AQI across available locations <span class="staticon">◉</span></div><div class="metric" id="avgAqi">—</div><div class="footnote" id="avgAqiNote">Waiting for live API response</div></article>
+    <article class="card"><div class="stathead">Locations with data <span class="staticon">⌖</span></div><div class="metric"><span id="availableCount">—</span><small> / <span id="totalCount">—</span></small></div><div class="footnote">Approximate district coordinates</div></article>
+    <article class="card"><div class="stathead">Selected location PM2.5 <span class="staticon">◌</span></div><div class="metric" id="pm25Stat">— <small>µg/m³</small></div><div class="footnote" id="selectedLabel">Select a district to inspect</div></article>
+    <article class="card"><div class="stathead">Provider status <span class="staticon">↗</span></div><div class="metric" style="font-size:22px" id="providerStatus">Checking</div><div class="footnote" id="lastUpdated">Data timestamp unavailable</div></article>
+  </div>
+  <div class="grid two">
+    <article class="card"><div class="cardtitle"><div><h3>Air-quality trend</h3><span id="trendSubtitle">Selected district · recent and forecast hours</span></div><span class="pill" id="trendPill">Live API</span></div><div class="chartwrap"><canvas id="trendChart"></canvas></div></article>
+    <article class="card"><div class="cardtitle"><div><h3>Pollutant concentrations</h3><span>Latest provider values · µg/m³ except CO</span></div></div><div class="chartwrap"><canvas id="pollutantChart"></canvas></div><div class="footnote">Carbon monoxide is shown in the unit returned by the provider. Values may be null where unavailable.</div></article>
+  </div>
+  <div class="sectionhead"><div><h2>District snapshot</h2><p>Sorted by available AQI estimates. Select any district to open its detail view.</p></div><button class="btn" onclick="navigate('districts')">Explore all locations →</button></div>
+  <article class="card"><div class="tablewrap"><table><thead><tr><th>Location</th><th>Estimated US AQI</th><th>Category</th><th>PM2.5</th><th>PM10</th><th>View</th></tr></thead><tbody id="snapshotBody"><tr><td colspan="6" class="empty">Loading live district data…</td></tr></tbody></table></div></article>
+  <div class="sectionhead"><div><h2>What the numbers mean</h2><p>Keep model estimates and official station measurements distinct.</p></div></div>
+  <div class="panelnote"><strong>Data transparency:</strong> This site retrieves model-based air-quality estimates from Open-Meteo/CAMS at approximate district coordinates. These are not certified CPCB monitoring-station readings. AQI is the provider's US AQI scale; it may differ from India's CPCB AQI. See Data & Methodology for source details.</div>
+</section>
+
+<section class="page" id="page-districts">
+  <div class="grid two">
+    <article class="card"><div class="cardtitle"><div><h3>District comparison</h3><span>Live provider response, refreshed on demand</span></div><button class="btn" id="districtRefresh">Reload</button></div><div class="tablewrap"><table><thead><tr><th>Location</th><th>AQI</th><th>Category</th><th>PM2.5</th></tr></thead><tbody id="districtBody"><tr><td colspan="4" class="empty">Loading…</td></tr></tbody></table></div></article>
+    <article class="card"><div class="cardtitle"><div><h3>Selected district</h3><span id="detailDistrictName">Ranchi</span></div><span class="pill" id="detailCategory">Loading</span></div><div class="metric" id="detailAqi">— <small>US AQI</small></div><p id="healthAdvice" class="subtitle">Loading air-quality information…</p><div class="sectionhead"><div><h2 style="font-size:13px">Pollutant readings</h2><p>Provider current-condition values</p></div></div><div id="pollutantList"></div><div style="margin-top:16px"><button class="btn primary" id="districtExport">Export hourly CSV</button></div></article>
+  </div>
+</section>
+
+<section class="page" id="page-map">
+  <div class="grid mapgrid">
+    <article class="card"><div class="cardtitle"><div><h3>Jharkhand air-quality map</h3><span>Marker colours reflect returned US AQI categories</span></div><span class="pill">OpenStreetMap</span></div><div id="map" class="map"></div><div class="maplegend"><span><i class="legenddot" style="background:#55d6a4"></i>Good</span><span><i class="legenddot" style="background:#edc75f"></i>Moderate</span><span><i class="legenddot" style="background:#f3a05c"></i>Sensitive groups</span><span><i class="legenddot" style="background:#f36f78"></i>Unhealthy+</span><span><i class="legenddot" style="background:#7d91a2"></i>Unavailable</span></div></article>
+    <article class="card"><div class="cardtitle"><div><h3>Location details</h3><span>Choose a marker or use the selector above</span></div></div><div id="mapDetail" class="empty"><strong>Select a location</strong>District details will appear here when live data is available.</div><div class="panelnote" style="margin-top:16px">Map points represent approximate district coordinates, not exact monitoring stations. Base map © OpenStreetMap contributors.</div></article>
+  </div>
+</section>
+
+<section class="page" id="page-forecast">
+  <div class="grid stats">
+    <article class="card"><div class="stathead">Current estimated US AQI <span class="staticon">◉</span></div><div class="metric" id="forecastCurrent">—</div><div class="footnote" id="forecastCurrentCategory">Waiting for data</div></article>
+    <article class="card"><div class="stathead">Next 24h forecast range <span class="staticon">↗</span></div><div class="metric" id="forecastRange">—</div><div class="footnote">Minimum–maximum hourly model forecast</div></article>
+    <article class="card"><div class="stathead">Recent hourly records <span class="staticon">◷</span></div><div class="metric" id="historyCount">—</div><div class="footnote">Records returned by the provider</div></article>
+    <article class="card"><div class="stathead">Forecast horizon <span class="staticon">⌁</span></div><div class="metric">72 <small>hours*</small></div><div class="footnote">*Provider output availability may vary</div></article>
+  </div>
+  <article class="card"><div class="cardtitle"><div><h3>Recent history and provider forecast</h3><span>Hourly US AQI · historical model archive + forward forecast</span></div><button class="btn" id="forecastRefresh">Refresh forecast</button></div><div class="chartwrap" style="height:330px"><canvas id="forecastChart"></canvas></div></article>
+  <div class="sectionhead"><div><h2>Next days at a glance</h2><p>Daily summaries calculated from hourly values returned by the provider.</p></div></div>
+  <div class="grid forecasttiles" id="dailyTiles"><div class="forecasttile">Loading provider forecast…</div></div>
+  <div class="notice">Forecast values are model output, not a guarantee or an official public-health warning. Do not use this site alone for medical or emergency decisions.</div>
+</section>
+
+<section class="page" id="page-complaints">
+  <div class="grid two">
+    <article class="card"><div class="cardtitle"><div><h3>Report an environmental concern</h3><span>Submissions are saved to this application's SQLite database</span></div><span class="pill">Community report</span></div>
+      <form id="complaintForm" class="formgrid">
+        <div class="field"><label for="category">Concern type *</label><select id="category" required><option value="">Choose type</option><option>Air pollution</option><option>Water pollution</option><option>Industrial emissions</option><option>Waste burning</option><option>Dust / construction</option><option>Other</option></select></div>
+        <div class="field"><label for="complaintDistrict">District *</label><select id="complaintDistrict" required></select></div>
+        <div class="field full"><label for="area">Locality / landmark *</label><input id="area" maxlength="160" required placeholder="e.g. nearby road, locality or landmark"></div>
+        <div class="field full"><label for="description">Describe the concern * (15–2000 characters)</label><textarea id="description" minlength="15" maxlength="2000" required placeholder="Describe what you observed, when it happened, and any useful details."></textarea></div>
+        <div class="field full"><label for="contact">Contact (optional)</label><input id="contact" maxlength="120" placeholder="Email or phone if you want to include it"></div>
+        <div class="field full"><button class="btn primary" type="submit" id="submitComplaint">Submit report</button></div>
+      </form><div id="complaintResult" class="hidden"></div>
+      <div class="footnote" style="margin-top:12px">This is a project reporting channel, not an official government grievance portal. Do not submit sensitive personal information.</div>
+    </article>
+    <article class="card"><div class="cardtitle"><div><h3>Track a submitted report</h3><span>Use the reference shown after submission</span></div></div><form id="trackForm"><div class="field"><label for="reference">Complaint reference</label><input id="reference" required placeholder="JPI-XXXXXXXX"></div><button class="btn" style="margin-top:12px" type="submit">Check status</button></form><div id="trackResult" class="complaint-result hidden"></div><div class="sectionhead"><div><h2 style="font-size:13px">What happens next?</h2><p>Each submission receives a reference ID and starts as “Received”. An administrator can update status after reviewing the report. Submission does not automatically notify a government agency.</p></div></div></article>
+  </div>
+</section>
+
+<section class="page" id="page-admin">
+  <div class="grid two">
+    <article class="card" id="adminLoginCard"><div class="cardtitle"><div><h3>Administrator sign in</h3><span>Access is disabled until an environment password is configured</span></div><span class="pill">Restricted</span></div><form id="adminLoginForm"><div class="field"><label for="adminPassword">Admin password</label><input type="password" id="adminPassword" required autocomplete="current-password"></div><button class="btn primary" style="margin-top:13px" type="submit">Sign in securely</button></form><div id="adminLoginMsg" class="notice">For local development, configure ADMIN_PASSWORD in your terminal before starting the app.</div></article>
+    <article class="card"><div class="cardtitle"><div><h3>Admin controls</h3><span>Review and update community reports</span></div></div><p class="subtitle">Admin authentication is handled by the Flask server session. Passwords are not stored in the database. Use HTTPS and a strong secret in a deployed environment.</p><button class="btn hidden" id="adminLogout">Sign out</button></article>
+  </div>
+  <article class="card hidden" id="adminReports" style="margin-top:16px"><div class="cardtitle"><div><h3>Recent reports</h3><span>Latest 300 records</span></div><button class="btn" id="reloadAdmin">Reload reports</button></div><div id="adminReportList"></div></article>
+</section>
+
+<section class="page" id="page-sources">
+  <div class="grid sourcegrid">
+    <article class="sourceitem"><strong>Open-Meteo Air Quality API</strong><p>Provides hourly pollutant and AQI model output for coordinates. This project uses its current-condition values and recent/forecast hourly series.</p><a href="https://open-meteo.com/en/docs/air-quality-api" target="_blank" rel="noreferrer">Read API documentation ↗</a></article>
+    <article class="sourceitem"><strong>CAMS atmospheric modelling</strong><p>Open-Meteo's air-quality service is based on atmospheric composition modelling. A grid-cell estimate may not represent a nearby street or industrial facility.</p><a href="https://open-meteo.com/" target="_blank" rel="noreferrer">Provider details ↗</a></article>
+    <article class="sourceitem"><strong>OpenStreetMap</strong><p>Interactive base-map tiles are supplied through Leaflet and OpenStreetMap. Internet access is required for map tiles.</p><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">Map attribution ↗</a></article>
+    <article class="sourceitem"><strong>CPCB India</strong><p>For official Indian AQI interpretation and station-level readings, consult the Central Pollution Control Board. This application does not claim to be a CPCB system.</p><a href="https://cpcb.nic.in/" target="_blank" rel="noreferrer">CPCB website ↗</a></article>
+  </div>
+  <div class="sectionhead"><div><h2>Methodology & limitations</h2><p>Designed for transparency and academic project review.</p></div></div>
+  <article class="card"><div class="tablewrap"><table><tbody>
+    <tr><td><strong>Coverage</strong></td><td>Selected Jharkhand district/city coordinates. They are not guaranteed to align with official monitoring stations.</td></tr>
+    <tr><td><strong>Current values</strong></td><td>Retrieved from the live Open-Meteo air-quality endpoint. Values are model-based estimates.</td></tr>
+    <tr><td><strong>AQI scale</strong></td><td>US AQI returned by the provider; not the India-specific CPCB AQI.</td></tr>
+    <tr><td><strong>Forecast</strong></td><td>Provider-generated hourly forecast; this version does not claim a separately trained proprietary ML model.</td></tr>
+    <tr><td><strong>Water pollution</strong></td><td>Community reports can be submitted, but verified water-quality measurements are not included because a reliable live district-level source has not been configured.</td></tr>
+    <tr><td><strong>Data outage</strong></td><td>If the API is unavailable, the site shows an unavailable/error state instead of inventing readings.</td></tr>
+    <tr><td><strong>Privacy</strong></td><td>Complaint data is stored locally in SQLite. Optional contact information is stored with the report; deploy only with an appropriate privacy notice and access controls.</td></tr>
+  </tbody></table></div></article>
+</section>
+<footer class="footer">JHARKHAND / AIR · Pollution Intelligence Platform · Data is provided for information and education, not as official regulatory, medical or emergency advice. Always verify critical readings with official sources. Open-Meteo and OpenStreetMap attribution applies.</footer>
+</main>
+</div>
+<div id="toast" class="toast hidden" role="status"></div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+const DISTRICTS = {{ districts|tojson }};
+const titles = {
+ overview:["State overview","Explore model-based air-quality estimates, compare district trends and report environmental concerns."],
+ districts:["District explorer","Inspect the selected location and compare pollutant values returned by the live provider."],
+ map:["Geospatial overview","Explore approximate district locations and the latest available air-quality estimates."],
+ forecast:["Forecast & trends","Review recent hourly model output and the provider's forward air-quality forecast."],
+ complaints:["Community reporting","Submit and track environmental concerns in the local project database."],
+ admin:["Admin desk","Review submitted reports using administrator access configured by the site operator."],
+ sources:["Data & methodology","Understand the source, scale, limitations and responsible interpretation of the data."]
+};
+let selectedDistrict="Ranchi", overviewData=null, detailData=null, trendChart=null, pollutantChart=null, forecastChart=null, mapObj=null, mapMarkers={};
+const $=id=>document.getElementById(id);
+const fmt=(v,d=1)=>v===null||v===undefined||!Number.isFinite(Number(v))?"—":Number(v).toFixed(d);
+const escapeHtml=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function showToast(msg){$("toast").textContent=msg;$("toast").classList.remove("hidden");setTimeout(()=>$("toast").classList.add("hidden"),4000)}
+function categoryClass(level){return ["good","moderate","sensitive","unhealthy","very-unhealthy","hazardous"].includes(level)?level:""}
+function categoryPill(cat){return `<span class="pill ${categoryClass(cat?.level)}">${escapeHtml(cat?.label||"Unavailable")}</span>`}
+function aqiColor(v){if(v==null)return "#7d91a2";if(v<=50)return "#55d6a4";if(v<=100)return "#edc75f";if(v<=150)return "#f3a05c";if(v<=200)return "#f36f78";return "#c96be8"}
+function valOrDash(v,suffix=""){return v===null||v===undefined?"—":`${fmt(v)}${suffix}`}
+function fillDistrictSelects(){["globalDistrict","complaintDistrict"].forEach(id=>{const el=$(id);el.innerHTML=DISTRICTS.map(d=>`<option value="${escapeHtml(d)}">${escapeHtml(d)}</option>`).join("");});$("globalDistrict").value=selectedDistrict;$("complaintDistrict").value=selectedDistrict}
+function navigate(page){document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id==="page-"+page));document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));$("pageTitle").textContent=titles[page][0];$("pageSubtitle").textContent=titles[page][1];if(page==="map")setTimeout(()=>{initMap();mapObj?.invalidateSize();},120);if(page==="admin")checkAdminState()}
+document.querySelectorAll("#nav button").forEach(b=>b.addEventListener("click",()=>navigate(b.dataset.page)));
+$("globalDistrict").addEventListener("change",async e=>{selectedDistrict=e.target.value;await loadDetail();if($("page-map").classList.contains("active"))renderMapDetail(selectedDistrict);});
+$("refreshBtn").addEventListener("click",()=>refreshAll(true));
+$("districtRefresh").addEventListener("click",()=>loadOverview(true));
+$("forecastRefresh").addEventListener("click",()=>loadDetail(true));
+$("districtExport").addEventListener("click",()=>{window.location.href="/api/export?district="+encodeURIComponent(selectedDistrict)});
+async function getJSON(url,options={}){const r=await fetch(url,{...options,headers:{"Content-Type":"application/json",...(options.headers||{})}});const data=await r.json().catch(()=>({error:"Unexpected server response"}));if(!r.ok)throw new Error(data.error||`Request failed (${r.status})`);return data}
+async function loadOverview(force=false){
+ $("serviceStatus").textContent="Fetching live district data…";
+ try{
+  const data=await getJSON("/api/overview"+(force?"?refresh="+Date.now():""));overviewData=data;
+  $("avgAqi").textContent=data.average_aqi==null?"—":fmt(data.average_aqi);
+  $("avgAqiNote").textContent=data.average_aqi==null?"No current values available":"Mean of "+data.available_count+" locations with available values";
+  $("availableCount").textContent=data.available_count;$("totalCount").textContent=data.total_count;
+  $("providerStatus").textContent=data.available_count?"Connected":"Unavailable";
+  $("lastUpdated").textContent="Updated "+new Date(data.updated_at).toLocaleTimeString();
+  $("serviceStatus").textContent=`${data.available_count}/${data.total_count} locations returned data.`;
+  renderDistrictTables(data.districts);
+ }catch(err){$("providerStatus").textContent="Unavailable";$("serviceStatus").textContent="Provider request failed.";showToast(err.message)}
+}
+function renderDistrictTables(items){
+ const sorted=[...items].sort((a,b)=>(b.current?.us_aqi??-1)-(a.current?.us_aqi??-1));
+ const rows=sorted.map(x=>{const c=x.current||{},aqi=c.us_aqi;return `<tr><td><div class="districtname"><span class="placeicon">⌖</span><span><strong>${escapeHtml(x.district)}</strong><br><span class="muted">${escapeHtml(x.district_type||"")}</span></span></div></td><td><strong>${valOrDash(aqi, " AQI")}</strong><div class="progress"><i style="width:${Math.min(100,Math.max(2,(Number(aqi)||0)/3.5))}%;background:${aqiColor(aqi)}"></i></div></td><td>${categoryPill(c.category)}</td><td>${valOrDash(c.pm2_5)}</td><td>${valOrDash(c.pm10)}</td><td><button class="btn" onclick="chooseDistrict('${escapeHtml(x.district)}')">Details</button></td></tr>`});
+ $("snapshotBody").innerHTML=rows.join("")||'<tr><td colspan="6" class="empty">No data returned.</td></tr>';
+ $("districtBody").innerHTML=sorted.map(x=>`<tr><td><strong>${escapeHtml(x.district)}</strong></td><td>${valOrDash(x.current?.us_aqi)}</td><td>${categoryPill(x.current?.category)}</td><td>${valOrDash(x.current?.pm2_5)}</td></tr>`).join("");
+ updateMapMarkers(sorted);
+}
+async function chooseDistrict(name){selectedDistrict=name;$("globalDistrict").value=name;await loadDetail();navigate("districts")}
+async function loadDetail(force=false){
+ $("selectedLabel").textContent=selectedDistrict;$("pm25Stat").innerHTML='— <small>µg/m³</small>';
+ try{
+  const data=await getJSON(`/api/air?district=${encodeURIComponent(selectedDistrict)}${force?"&refresh="+Date.now():""}`);detailData=data;
+  const c=data.current||{};$("pm25Stat").innerHTML=`${valOrDash(c.pm2_5)} <small>µg/m³</small>`;
+  $("detailDistrictName").textContent=data.district;$("detailCategory").outerHTML=categoryPill(c.category).replace('<span class="pill','<span id="detailCategory" class="pill');
+  $("detailAqi").innerHTML=`${valOrDash(c.us_aqi)} <small>US AQI</small>`;$("healthAdvice").textContent=c.category?.advice||"No advisory available.";
+  const pollutants=[["PM2.5","pm2_5","µg/m³"],["PM10","pm10","µg/m³"],["Carbon monoxide","carbon_monoxide","µg/m³"],["Nitrogen dioxide","nitrogen_dioxide","µg/m³"],["Sulphur dioxide","sulphur_dioxide","µg/m³"],["Ozone","ozone","µg/m³"]];
+  $("pollutantList").innerHTML=pollutants.map(([name,key,unit])=>`<div style="display:flex;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid var(--line)"><span class="muted">${name}</span><strong>${valOrDash(c[key])} <span class="muted" style="font-size:10px">${unit}</span></strong></div>`).join("");
+  drawCharts(data);renderForecast(data);renderMapDetail(selectedDistrict);
+ }catch(err){$("providerStatus").textContent="Unavailable";$("serviceStatus").textContent="Live data unavailable for "+selectedDistrict;showToast(err.message);$("trendSubtitle").textContent="No live series returned";$("healthAdvice").textContent="The provider could not return data. Please retry later."}
+}
+function chartDefaults(){return {responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},plugins:{legend:{labels:{color:"#9db0bf",boxWidth:10,font:{family:"DM Sans",size:10}}},tooltip:{backgroundColor:"#0b1722",borderColor:"#2b4051",borderWidth:1,titleColor:"#eef6fa",bodyColor:"#c5d4df"}},scales:{x:{ticks:{color:"#8198a9",maxTicksLimit:8,font:{size:10}},grid:{color:"rgba(120,150,170,.08)"}},y:{ticks:{color:"#8198a9",font:{size:10}},grid:{color:"rgba(120,150,170,.1)"},beginAtZero:true}}}}
+function drawCharts(data){
+ const h=data.hourly||{},times=h.time||[],aqi=h.us_aqi||[];
+ const labels=times.map(t=>{const d=new Date(t);return Number.isNaN(d.getTime())?t:d.toLocaleString([], {month:"short",day:"numeric",hour:"2-digit"})});
+ const currentTime=data.current?.time;
+ const cut=times.findIndex(t=>t>=currentTime);
+ const split=cut>=0?cut:Math.max(0,times.length-72);
+ const ctx=$("trendChart");
+ if(trendChart)trendChart.destroy();
+ trendChart=new Chart(ctx,{type:"line",data:{labels:labels.slice(-120),datasets:[{label:"US AQI",data:aqi.slice(-120),borderColor:"#55dfbd",backgroundColor:"rgba(85,223,189,.10)",fill:true,tension:.28,pointRadius:0,borderWidth:2,spanGaps:true}]},options:chartDefaults()});
+ const c=data.current||{};
+ if(pollutantChart)pollutantChart.destroy();
+ pollutantChart=new Chart($("pollutantChart"),{type:"bar",data:{labels:["PM2.5","PM10","CO","NO₂","SO₂","O₃"],datasets:[{label:"Current concentration",data:[c.pm2_5,c.pm10,c.carbon_monoxide,c.nitrogen_dioxide,c.sulphur_dioxide,c.ozone].map(v=>v??null),backgroundColor:["#55dfbd","#72b7ff","#f4c46b","#b69bff","#f29a8f","#77d4d4"],borderRadius:5,borderSkipped:false}]},options:{...chartDefaults(),plugins:{...chartDefaults().plugins,legend:{display:false}}}});
+ $("trendSubtitle").textContent=`${data.district} · provider hourly values · local time`;
+}
+function renderForecast(data){
+ const h=data.hourly||{},times=h.time||[],aqi=h.us_aqi||[],cut=times.findIndex(t=>t>=data.current?.time),start=cut>=0?cut:Math.max(0,times.length-72);
+ const future=aqi.slice(start).filter(v=>v!==null&&v!==undefined).slice(0,72);
+ $("forecastCurrent").textContent=valOrDash(data.current?.us_aqi);$("forecastCurrentCategory").textContent=data.current?.category?.label||"Unavailable";
+ $("forecastRange").textContent=future.length?`${Math.min(...future)}–${Math.max(...future)}`:"—";
+ $("historyCount").textContent=String(Math.max(0,start));
+ const labels=times.slice(Math.max(0,start-168),start+72);
+ const labelText=labels.map(t=>{const d=new Date(t);return Number.isNaN(d.getTime())?t:d.toLocaleString([], {month:"short",day:"numeric",hour:"2-digit"})});
+ const historic=aqi.slice(Math.max(0,start-168),start+72).map((v,i)=>i+Math.max(0,start-168)<start?v:null);
+ const forecast=aqi.slice(Math.max(0,start-168),start+72).map((v,i)=>i+Math.max(0,start-168)>=start?v:null);
+ if(forecastChart)forecastChart.destroy();
+ forecastChart=new Chart($("forecastChart"),{type:"line",data:{labels:labelText,datasets:[{label:"Recent hourly values",data:historic,borderColor:"#72b7ff",backgroundColor:"rgba(114,183,255,.08)",fill:false,tension:.2,pointRadius:0,borderWidth:2,spanGaps:false},{label:"Provider forecast",data:forecast,borderColor:"#55dfbd",borderDash:[5,4],fill:false,tension:.2,pointRadius:0,borderWidth:2,spanGaps:false}]},options:chartDefaults()});
+ const daily={};
+ times.forEach((t,i)=>{const d=t.slice(0,10);(daily[d]??=[]).push(aqi[i])});
+ const today=data.current?.time?.slice(0,10);
+ const futureDays=Object.entries(daily).filter(([d])=>!today||d>=today).slice(0,3);
+ $("dailyTiles").innerHTML=futureDays.map(([d,vals])=>{const nums=vals.filter(v=>v!=null);const mean=nums.length?nums.reduce((a,b)=>a+Number(b),0)/nums.length:null;return `<div class="forecasttile"><div class="day">${new Date(d+"T12:00:00").toLocaleDateString([], {weekday:"long",month:"short",day:"numeric"})}</div><div class="value">${mean===null?"—":Math.round(mean)}</div><div class="muted" style="font-size:11px">Mean hourly US AQI</div><div style="margin-top:10px">${categoryPill(mean===null?null:categoryFor(mean))}</div></div>`}).join("")||'<div class="forecasttile">No forecast values available.</div>';
+}
+function categoryFor(v){if(v<=50)return {label:"Good",level:"good"};if(v<=100)return {label:"Moderate",level:"moderate"};if(v<=150)return {label:"Sensitive groups",level:"sensitive"};if(v<=200)return {label:"Unhealthy",level:"unhealthy"};if(v<=300)return {label:"Very unhealthy",level:"very-unhealthy"};return {label:"Hazardous",level:"hazardous"}}
+function initMap(){if(mapObj||!window.L)return;mapObj=L.map("map").setView([23.65,85.55],7);L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:18,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(mapObj);if(overviewData)updateMapMarkers(overviewData.districts)}
+function updateMapMarkers(items){if(!mapObj)return;items.forEach(x=>{const co=x.coordinates||x;const lat=co.lat,lon=co.lon;if(lat==null||lon==null)return;const val=x.current?.us_aqi;const icon=L.divIcon({className:"",html:`<div style="width:17px;height:17px;border:3px solid #e7f5fa;border-radius:50%;background:${aqiColor(val)};box-shadow:0 2px 8px #0008"></div>`,iconSize:[17,17],iconAnchor:[8,8]});if(mapMarkers[x.district]){mapMarkers[x.district].setLatLng([lat,lon]);mapMarkers[x.district].setIcon(icon)}else{mapMarkers[x.district]=L.marker([lat,lon],{icon}).addTo(mapObj);mapMarkers[x.district].on("click",()=>{selectedDistrict=x.district;$("globalDistrict").value=selectedDistrict;loadDetail();renderMapDetail(selectedDistrict)})}mapMarkers[x.district].bindPopup(`<strong>${escapeHtml(x.district)}</strong><br>US AQI: ${valOrDash(val)}<br>${escapeHtml(x.current?.category?.label||"Data unavailable")}<br><button onclick="chooseDistrict('${escapeHtml(x.district)}')" style="margin-top:7px">View details</button>`)});}
+function renderMapDetail(name){const x=(overviewData?.districts||[]).find(d=>d.district===name);const c=(name===detailData?.district?detailData.current:x?.current)||{};$("mapDetail").innerHTML=`<div class="eyebrow">${escapeHtml(name)}</div><div class="metric">${valOrDash(c.us_aqi)} <small>US AQI</small></div><div style="margin:10px 0">${categoryPill(c.category)}</div><p class="subtitle">${escapeHtml(c.category?.advice||"No current provider value is available.")}</p><div style="margin-top:15px"><button class="btn primary" onclick="chooseDistrict('${escapeHtml(name)}')">Open district details →</button></div>`}
+async function refreshAll(force=false){await loadOverview(force);await loadDetail(force)}
+$("complaintForm").addEventListener("submit",async e=>{e.preventDefault();const btn=$("submitComplaint");btn.disabled=true;btn.textContent="Submitting…";try{const data=await getJSON("/api/complaints",{method:"POST",body:JSON.stringify({category:$("category").value,district:$("complaintDistrict").value,area:$("area").value.trim(),description:$("description").value.trim(),contact:$("contact").value.trim()})});$("complaintResult").className="complaint-result";$("complaintResult").innerHTML=`<strong>Report received</strong><p>Your reference is <strong>${escapeHtml(data.reference)}</strong>. Save this ID to track status.</p><span class="pill good">${escapeHtml(data.status)}</span>`;$("reference").value=data.reference;$("complaintForm").reset();$("complaintDistrict").value=selectedDistrict;showToast("Report saved successfully.")}catch(err){showToast(err.message)}finally{btn.disabled=false;btn.textContent="Submit report"}});
+$("trackForm").addEventListener("submit",async e=>{e.preventDefault();const box=$("trackResult");box.classList.remove("hidden");box.textContent="Checking…";try{const d=await getJSON("/api/complaints/"+encodeURIComponent($("reference").value.trim()));box.innerHTML=`<strong>${escapeHtml(d.reference)}</strong><p>${escapeHtml(d.category)} · ${escapeHtml(d.district)} · ${escapeHtml(d.area)}</p><span class="pill">${escapeHtml(d.status)}</span><p class="footnote">Submitted: ${new Date(d.created_at).toLocaleString()}</p>`}catch(err){box.textContent=err.message}});
+$("adminLoginForm").addEventListener("submit",async e=>{e.preventDefault();try{await getJSON("/api/admin/login",{method:"POST",body:JSON.stringify({password:$("adminPassword").value})});$("adminLoginMsg").textContent="Signed in successfully."; $("adminLoginMsg").classList.remove("error");$("adminLogout").classList.remove("hidden");await loadAdminReports();showToast("Administrator signed in.")}catch(err){$("adminLoginMsg").textContent=err.message;$("adminLoginMsg").classList.add("error")}});
+$("adminLogout").addEventListener("click",async()=>{await getJSON("/api/admin/logout",{method:"POST",body:"{}"});$("adminReports").classList.add("hidden");$("adminLogout").classList.add("hidden");$("adminLoginMsg").textContent="Signed out.";});
+$("reloadAdmin").addEventListener("click",loadAdminReports);
+async function checkAdminState(){try{const data=await getJSON("/api/admin/complaints");$("adminLoginCard").classList.add("hidden");$("adminReports").classList.remove("hidden");$("adminLogout").classList.remove("hidden");renderAdminReports(data)}catch(_){$("adminLoginCard").classList.remove("hidden")}}
+async function loadAdminReports(){try{const data=await getJSON("/api/admin/complaints");$("adminLoginCard").classList.add("hidden");$("adminReports").classList.remove("hidden");renderAdminReports(data)}catch(err){showToast(err.message)}}
+function renderAdminReports(items){$("adminReportList").innerHTML=items.length?items.map(x=>`<div class="adminrow"><div><strong>${escapeHtml(x.reference)} · ${escapeHtml(x.category)}</strong><div class="footnote">${escapeHtml(x.district)} · ${escapeHtml(x.area)} · ${new Date(x.created_at).toLocaleString()}<br>${escapeHtml(x.description)}</div></div><select class="select" id="status-${escapeHtml(x.reference)}">${["Received","Under review","Action taken","Closed"].map(s=>`<option ${s===x.status?"selected":""}>${s}</option>`).join("")}</select><button class="btn" onclick="updateStatus('${escapeHtml(x.reference)}')">Save</button></div>`).join(""):'<div class="empty"><strong>No reports yet</strong>Submitted reports will appear here.</div>'}
+async function updateStatus(ref){try{const status=$("status-"+ref).value;await getJSON("/api/admin/complaints/"+encodeURIComponent(ref),{method:"PATCH",body:JSON.stringify({status})});showToast("Complaint status updated.");await loadAdminReports()}catch(err){showToast(err.message)}}
+async function init(){fillDistrictSelects();await refreshAll();if(window.L)initMap();else $("map").innerHTML='<div class="empty">Map library unavailable. Check internet access.</div>'}
+init();
+</script>
+</body>
+</html>
